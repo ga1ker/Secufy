@@ -1,15 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:secufy_app/screens/recovery_password.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
+  final RegExp emailRegExp = RegExp(
+      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'); // Expresión regular para validar el formato de correo electrónico
 
   void _submitForm(BuildContext context) {
     String email = _emailController.text;
-    // Aquí podrías implementar la lógica para enviar un correo de recuperación de contraseña
-    print('Correo Electrónico para recuperación de contraseña: $email');
 
-    // Aquí podrías mostrar un mensaje de éxito o error, o redirigir a otra pantalla
+    if (email.isEmpty || !emailRegExp.hasMatch(email)) {
+      // Si el correo electrónico está vacío o no es válido, muestra un mensaje de error
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Error'),
+            content: Text('Por favor, ingrese un correo electrónico válido.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Si el correo electrónico es válido, navega a la pantalla de recuperación
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RecoveryScreen()),
+      );
+      print('correo de recuperación $email');
+    }
   }
 
   @override

@@ -22,7 +22,7 @@ class _RegisterFormState extends State<RegisterForm> {
   bool _isChecked = false;
 
   void _submitForm() {
-    if (!_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       if (!_isChecked) {
         showDialog(
           context: context,
@@ -37,33 +37,30 @@ class _RegisterFormState extends State<RegisterForm> {
             ],
           ),
         );
-        return;
       } else {
-        print('campos no validos');
+        String name = _nameController.text;
+        String email = _emailController.text;
+        String password = _passwordController.text;
+        String phone = _phoneController.text;
+        String hardwareCode = _hardwareCodeController.text;
+
+        setState(() {
+          _isLoading = true;
+        });
+
+        Future.delayed(Duration(seconds: 1), () {
+          setState(() {
+            _isLoading = false;
+          });
+          print('Nombre: $name');
+          print('Correo Electrónico: $email');
+          print('Contraseña: $password');
+          print('Teléfono: $phone');
+          print('Código de Hardware: $hardwareCode');
+          print('Acepta términos y condiciones: $_isChecked');
+        });
       }
     }
-
-    String name = _nameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
-    String phone = _phoneController.text;
-    String hardwareCode = _hardwareCodeController.text;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulate registration process
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
-      print('Nombre: $name');
-      print('Correo Electrónico: $email');
-      print('Contraseña: $password');
-      print('Teléfono: $phone');
-      print('Código de Hardware: $hardwareCode');
-    });
   }
 
   @override
@@ -77,9 +74,11 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(
-                  'Registrar Usuario',
-                  style: AppTheme.lightTheme.textTheme.titleLarge,
+                AppBar(
+                  title: Text(
+                    'Registrar Usuario',
+                    style: AppTheme.lightTheme.textTheme.titleLarge,
+                  ),
                 ),
                 SizedBox(height: 30),
                 TextFormField(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:secufy_app/screens/forgot_password.dart';
+import 'package:secufy_app/screens/main_screen_user.dart';
 import 'package:secufy_app/screens/register_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
@@ -10,24 +11,25 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordrouteController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
   bool _isLoading = false;
   bool _obscureText = true;
 
   void _submitForm() {
     String email = _emailController.text;
-    String passwordroute = _passwordrouteController.text;
+    String password = _passwordController.text;
 
     setState(() {
       _isLoading = true;
     });
 
+    // Simulating some asynchronous operation
     Future.delayed(Duration(seconds: 1), () {
       setState(() {
         _isLoading = false;
       });
-      print('Correo Electrónico: $email, Contraseña: $passwordroute');
+      print('Correo Electrónico: $email, Contraseña: $password');
     });
   }
 
@@ -40,15 +42,21 @@ class _LoginFormState extends State<LoginForm> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              SizedBox(
+                height: 40,
+              ),
               Text(
                 'Iniciar Sesión',
                 style: AppTheme.lightTheme.textTheme.titleLarge,
               ),
               SizedBox(
+                height: 20,
+              ),
+              SizedBox(
                 height: 150,
-                width: 250,
+                width: 150,
                 child: Image.asset(
-                  'assets/imgs/secufy_logo.jpg',
+                  'assets/imgs/logo_secu.png',
                 ),
               ),
               SizedBox(height: 50),
@@ -62,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
                 style: AppTheme.lightTheme.textTheme.bodySmall,
               ),
               TextField(
-                controller: _passwordrouteController,
+                controller: _passwordController,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   labelText: 'Contraseña',
@@ -79,31 +87,37 @@ class _LoginFormState extends State<LoginForm> {
               ),
               SizedBox(height: 5.0),
               GestureDetector(
-                  onTap: () {
-                    final passwordRoute = MaterialPageRoute(builder: (context) {
-                      return ForgotPasswordScreen();
-                    });
-                    Navigator.push(context, passwordRoute);
-                  },
-                  child: Text('Olvidé mi contraseña')),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()),
+                  );
+                },
+                child: Text('Olvidé mi contraseña'),
+              ),
               SizedBox(height: 20.0),
               _isLoading
                   ? CircularProgressIndicator()
                   : ElevatedButton(
-                      onPressed: _submitForm,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MainUserScreen()),
+                        );
+                      },
                       child: Text('Iniciar sesión'),
                     ),
               SizedBox(height: 20.0),
               GestureDetector(
                 onTap: () {
-                  final registerRoute = MaterialPageRoute(builder: (context) {
-                    return RegisterForm();
-                  });
-                  Navigator.push(context, registerRoute);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => RegisterForm()),
+                  );
                 },
-                child: const Text(
-                  'No tengo cuenta',
-                ),
+                child: const Text('No tengo cuenta'),
               ),
             ],
           ),
