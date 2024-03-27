@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:secufy_app/screens/forgot_password.dart';
 import 'package:secufy_app/screens/main_screen_user.dart';
 import 'package:secufy_app/screens/register_screen.dart';
-import 'package:secufy_app/theme/app_theme.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -36,94 +35,117 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(25.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 40,
-              ),
-              Text(
-                'Iniciar Sesión',
-                style: AppTheme.lightTheme.textTheme.titleLarge,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              SizedBox(
-                height: 150,
-                width: 150,
-                child: Image.asset(
-                  'assets/imgs/logo_secu.png',
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(
+                "assets/imgs/back_image.png"), // Ruta de la imagen de fondo
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(25.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 60,
                 ),
-              ),
-              SizedBox(height: 50),
-              TextField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Correo Electrónico',
-                  hintText: 'ejemplo@gmail.com',
-                  suffixIcon: Icon(Icons.email_outlined),
+                Text(
+                  'Iniciar Sesión',
+                  style: TextStyle(color: Colors.white, fontSize: 24.0),
                 ),
-                style: AppTheme.lightTheme.textTheme.bodySmall,
-              ),
-              TextField(
-                controller: _passwordController,
-                obscureText: _obscureText,
-                decoration: InputDecoration(
-                  labelText: 'Contraseña',
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off),
-                    onPressed: () {
-                      setState(() {
-                        _obscureText = !_obscureText;
-                      });
-                    },
+                SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 150,
+                  width: 150,
+                  child: Image.asset(
+                    'assets/imgs/logo_secu.png',
                   ),
                 ),
-              ),
-              SizedBox(height: 5.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen()),
-                  );
-                },
-                child: Text('Olvidé mi contraseña'),
-              ),
-              SizedBox(height: 20.0),
-              _isLoading
-                  ? CircularProgressIndicator()
-                  : ElevatedButton(
+                SizedBox(height: 75),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    labelText: 'Correo Electrónico',
+                    hintText: 'ejemplo@gmail.com',
+                    hintStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: Icon(Icons.email_outlined, color: Colors.white),
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+                TextField(
+                  controller: _passwordController,
+                  obscureText: _obscureText,
+                  decoration: InputDecoration(
+                    labelText: 'Contraseña',
+                    labelStyle: TextStyle(color: Colors.white),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscureText
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      color: Colors.white,
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MainUserScreen()),
-                        );
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
                       },
-                      child: Text('Iniciar sesión'),
                     ),
-              SizedBox(height: 20.0),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => RegisterForm()),
-                  );
-                },
-                child: const Text('No tengo cuenta'),
-              ),
-            ],
+                  ),
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(height: 5.0),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Olvidé mi contraseña',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                SizedBox(height: 50.0),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainUserScreen()),
+                          );
+                        },
+                        child: Text('Iniciar sesión'),
+                      ),
+                SizedBox(height: 20.0),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterForm()),
+                    );
+                  },
+                  child: Text(
+                    'No tengo cuenta',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                SizedBox(height: 20.0)
+              ],
+            ),
           ),
         ),
       ),
-      backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
+      backgroundColor:
+          Colors.transparent, // Establece el color de fondo transparente
     );
   }
 }

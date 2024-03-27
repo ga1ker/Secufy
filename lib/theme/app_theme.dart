@@ -2,31 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const mainColor = Color.fromARGB(255, 115, 105, 255);
-  static const backColor = Color.fromARGB(255, 192, 255, 249);
+  static const mainColor = Color.fromARGB(255, 12, 0, 177);
+  static const backColor = Color.fromARGB(255, 2, 0, 36);
   static const negro = Color.fromARGB(255, 0, 0, 0);
-  static const words = Color.fromARGB(255, 6, 0, 85);
+  static const words = Color.fromARGB(255, 236, 234, 255);
+  static const blanco = Color.fromARGB(255, 255, 255, 255);
 
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     scaffoldBackgroundColor: backColor,
     appBarTheme: const AppBarTheme(color: mainColor),
     textTheme: TextTheme(
-      titleLarge: GoogleFonts.nunito(
-        fontSize: 20.0,
+      titleLarge: GoogleFonts.abel(
+        color: words,
+        fontSize: 30.0,
         fontWeight: FontWeight.bold,
-        backgroundColor: backColor,
       ),
       headlineLarge: GoogleFonts.nunito(
-        color: negro,
+        color: words,
         fontWeight: FontWeight.bold,
       ),
-      bodySmall: GoogleFonts.nunito(
+      bodyLarge: GoogleFonts.nunito(
         color: words,
+        fontSize: 20,
+      ),
+      bodySmall: GoogleFonts.nunito(
+        color: blanco,
         fontWeight: FontWeight.normal,
       ),
       bodyMedium: GoogleFonts.nunito(
-        color: negro,
-        backgroundColor: mainColor,
+        color: words,
       ),
     ),
   );

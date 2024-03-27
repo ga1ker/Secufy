@@ -66,6 +66,12 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Registrar Usuario',
+          style: AppTheme.lightTheme.textTheme.headlineMedium,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(25.0),
@@ -74,26 +80,22 @@ class _RegisterFormState extends State<RegisterForm> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                AppBar(
-                  title: Text(
-                    'Registrar Usuario',
-                    style: AppTheme.lightTheme.textTheme.titleLarge,
-                  ),
-                ),
-                SizedBox(height: 30),
+                SizedBox(height: 10),
                 TextFormField(
                   controller: _nameController,
                   decoration: const InputDecoration(
                     labelText: 'Nombre',
                     hintText: 'Juan Pérez',
+                    hintStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
-                  style: AppTheme.lightTheme.textTheme.bodySmall,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Este campo es obligatorio';
                     }
                     return null;
                   },
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
@@ -102,8 +104,9 @@ class _RegisterFormState extends State<RegisterForm> {
                     labelText: 'Correo Electrónico',
                     hintText: 'ejemplo@gmail.com',
                     suffixIcon: Icon(Icons.email_outlined),
+                    hintStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
-                  style: AppTheme.lightTheme.textTheme.bodySmall,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Este campo es obligatorio';
@@ -114,6 +117,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
@@ -131,8 +135,8 @@ class _RegisterFormState extends State<RegisterForm> {
                         });
                       },
                     ),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
-                  style: AppTheme.lightTheme.textTheme.bodySmall,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Este campo es obligatorio';
@@ -142,16 +146,19 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _phoneController,
+                  maxLength: 10,
                   decoration: const InputDecoration(
                     labelText: 'Número de Teléfono',
                     hintText: '1234567890',
+                    hintStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
                   keyboardType: TextInputType.phone,
-                  style: AppTheme.lightTheme.textTheme.bodySmall,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Este campo es obligatorio';
@@ -162,6 +169,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     }
                     return null;
                   },
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
@@ -169,8 +177,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   decoration: const InputDecoration(
                     labelText: 'Código de la cámara',
                     hintText: 'ABC123',
+                    hintStyle: TextStyle(color: Colors.white),
+                    labelStyle: TextStyle(color: Colors.white),
                   ),
-                  style: AppTheme.lightTheme.textTheme.bodySmall,
+                  style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
                 Row(
@@ -192,6 +202,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       },
                       child: Text(
                         'Acepto los términos y condiciones',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ],

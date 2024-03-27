@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:secufy_app/screens/notifications_screen.dart';
+import 'package:secufy_app/screens/main_screen_user.dart';
 import 'package:secufy_app/screens/user_settings_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
-class MainUserScreen extends StatefulWidget {
-  const MainUserScreen({Key? key}) : super(key: key);
+class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({super.key});
 
   @override
-  State<MainUserScreen> createState() => _MainUserScreenState();
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-class _MainUserScreenState extends State<MainUserScreen> {
+class _NotificationsScreenState extends State<NotificationsScreen> {
   int selectedIndex = 0;
 
   void openScreen(int index) {
@@ -48,60 +47,17 @@ class _MainUserScreenState extends State<MainUserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Cámaras',
-          style: AppTheme.lightTheme.textTheme.headlineMedium,
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              // Acción para el botón de búsqueda
-              print('Acción de búsqueda');
-            },
-          ),
-        ],
+        title: Text('Notificaciones'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
+        child: Padding(
+          padding: EdgeInsets.all(20),
+          child: ListTile(
+            title: Text(
+              'hola',
+              style: AppTheme.lightTheme.textTheme.bodyMedium,
             ),
-            Center(
-              child: SizedBox(
-                height: 200,
-                width: 300,
-                child: Card(
-                  color: Colors.white, // Cambiado a color blanco
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  elevation: 10,
-                  child: Padding(
-                    padding: EdgeInsets.all(30),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Cámara 1',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            print('Camara 1');
-                          },
-                          child: Text('Ver cámara'),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -132,7 +88,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
           ),
         ],
       ),
-      backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
+      backgroundColor: AppTheme.backColor,
     );
   }
 }

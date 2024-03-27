@@ -60,9 +60,11 @@ class ForgotPasswordScreen extends StatelessWidget {
               decoration: const InputDecoration(
                 labelText: 'Correo Electrónico',
                 hintText: 'ejemplo@gmail.com',
+                hintStyle: TextStyle(color: Colors.white),
+                labelStyle: TextStyle(color: Colors.white),
                 suffixIcon: Icon(Icons.email_outlined),
               ),
-              style: AppTheme.lightTheme.textTheme.bodySmall,
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
