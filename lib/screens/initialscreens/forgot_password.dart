@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:secufy_app/screens/recovery_password.dart';
+import 'package:secufy_app/screens/initialscreens/recovery_password.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

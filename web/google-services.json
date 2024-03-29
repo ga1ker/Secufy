@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "743492029148",
+    "firebase_url": "https://secufy-31c90-default-rtdb.firebaseio.com",
+    "project_id": "secufy-31c90",
+    "storage_bucket": "secufy-31c90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743492029148:android:459e41d0d4106c26e60219",
+        "android_client_info": {
+          "package_name": "com.example.secufy_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "743492029148-6ls95sapb5fgvsdie49bemlqhdrdu7it.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEoz3H3pTYSflGF-g7cLcP2m2Q0bczRZA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "743492029148-6ls95sapb5fgvsdie49bemlqhdrdu7it.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "743492029148-b0ji61msmpef4hon2jaqtftr0vg6t9m5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.secufyApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

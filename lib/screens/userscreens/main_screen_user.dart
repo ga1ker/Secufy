@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:secufy_app/screens/notifications_screen.dart';
-import 'package:secufy_app/screens/user_settings_screen.dart';
+import 'package:secufy_app/screens/userscreens/notifications_screen.dart';
+import 'package:secufy_app/screens/userscreens/user_settings_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class MainUserScreen extends StatefulWidget {
@@ -19,12 +20,7 @@ class _MainUserScreenState extends State<MainUserScreen> {
       () {
         switch (index) {
           case 0:
-            selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MainUserScreen()));
-            break;
+            null;
           case 1:
             selectedIndex = index;
             Navigator.push(
@@ -46,10 +42,12 @@ class _MainUserScreenState extends State<MainUserScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
-          'Cámaras',
+          user?.displayName ?? 'Camaras',
           style: AppTheme.lightTheme.textTheme.headlineMedium,
         ),
         actions: [

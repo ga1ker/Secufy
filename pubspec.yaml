@@ -7,17 +7,24 @@ environment:
   sdk: '>=3.2.6 <4.0.0'
 
 dependencies:
+  firebase_core: ^2.27.2
+  firebase_auth: ^4.18.0
   flutter:
     sdk: flutter
   google_fonts: ^6.1.0
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.2
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/imgs/logo_secu.png
+    - assets/imgs/secufy_logo.png
+    - assets/imgs/secufy_texto.png
     - assets/imgs/back_image.png
+    - assets/imgs/google.png
+    - assets/imgs/background_main.png
+    - assets/imgs/background_app.png

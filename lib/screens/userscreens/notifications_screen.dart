@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:secufy_app/screens/main_screen_user.dart';
-import 'package:secufy_app/screens/notifications_screen.dart';
+import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
+import 'package:secufy_app/screens/userscreens/user_settings_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
-class UserSettingsScreen extends StatefulWidget {
-  const UserSettingsScreen({super.key});
+class NotificationsScreen extends StatefulWidget {
+  const NotificationsScreen({super.key});
 
   @override
-  State<UserSettingsScreen> createState() => _UserSettingsScreenState();
+  State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-class _UserSettingsScreenState extends State<UserSettingsScreen> {
-  int selectedIndex = 0;
+class _NotificationsScreenState extends State<NotificationsScreen> {
+  int selectedIndex = 1;
 
   void openScreen(int index) {
     setState(
@@ -25,12 +25,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                     builder: (context) => const MainUserScreen()));
             break;
           case 1:
-            selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const NotificationsScreen()));
-            break;
+            null;
           case 2:
             selectedIndex = index;
             Navigator.push(
@@ -47,13 +42,17 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Hola'),
+        automaticallyImplyLeading: false,
+        title: Text('Notificaciones'),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(20),
           child: ListTile(
-            title: Text('hola usuario'),
+            title: Text(
+              'hola',
+              style: AppTheme.lightTheme.textTheme.bodyMedium,
+            ),
           ),
         ),
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:secufy_app/screens/login_screen.dart';
-import 'package:secufy_app/screens/terms_screen.dart';
+import 'package:secufy_app/screens/initialscreens/login_screen.dart';
+import 'package:secufy_app/screens/initialscreens/terms_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -74,7 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: EdgeInsets.fromLTRB(35, 50, 35, 10),
           child: Form(
             key: _formKey,
             child: Column(
@@ -83,7 +83,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 SizedBox(height: 10),
                 TextFormField(
                   controller: _nameController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Nombre',
                     hintText: 'Juan Pérez',
                     hintStyle: TextStyle(color: Colors.white),
@@ -100,7 +103,10 @@ class _RegisterFormState extends State<RegisterForm> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Correo Electrónico',
                     hintText: 'ejemplo@gmail.com',
                     suffixIcon: Icon(Icons.email_outlined),
@@ -124,6 +130,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   controller: _passwordController,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Contraseña',
                     suffixIcon: IconButton(
                       icon: Icon(_obscureText
@@ -142,30 +151,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       return 'Este campo es obligatorio';
                     }
                     if (value.length < 8 || !value.contains(RegExp(r'\d'))) {
-                      return 'La contraseña debe tener al menos 8 caracteres y un número';
-                    }
-                    return null;
-                  },
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _phoneController,
-                  maxLength: 10,
-                  decoration: const InputDecoration(
-                    labelText: 'Número de Teléfono',
-                    hintText: '1234567890',
-                    hintStyle: TextStyle(color: Colors.white),
-                    labelStyle: TextStyle(color: Colors.white),
-                  ),
-                  keyboardType: TextInputType.phone,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Este campo es obligatorio';
-                    }
-                    if (value.length != 10 ||
-                        !RegExp(r'^[0-9]+$').hasMatch(value)) {
-                      return 'Por favor ingresa un número de teléfono válido';
+                      return 'Debe tener al menos 8 caracteres y un número';
                     }
                     return null;
                   },
@@ -174,12 +160,22 @@ class _RegisterFormState extends State<RegisterForm> {
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _hardwareCodeController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Código de la cámara',
                     hintText: 'ABC123',
                     hintStyle: TextStyle(color: Colors.white),
                     labelStyle: TextStyle(color: Colors.white),
                   ),
+                  maxLength: 5,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Este campo es obligatorio';
+                    }
+                    return null;
+                  },
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 20),
@@ -214,7 +210,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         onPressed: _submitForm,
                         child: Text('Registrar'),
                       ),
-                SizedBox(height: 20),
+                SizedBox(height: 50),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(

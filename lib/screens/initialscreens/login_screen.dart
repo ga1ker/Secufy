@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:secufy_app/screens/forgot_password.dart';
-import 'package:secufy_app/screens/main_screen_user.dart';
-import 'package:secufy_app/screens/register_screen.dart';
+import 'package:secufy_app/screens/initialscreens/forgot_password.dart';
+import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
+import 'package:secufy_app/screens/initialscreens/register_screen.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -32,6 +32,8 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
+  late String email, password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +41,13 @@ class _LoginFormState extends State<LoginForm> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                "assets/imgs/back_image.png"), // Ruta de la imagen de fondo
+                "assets/imgs/background_main.png"), // Ruta de la imagen de fondo
             fit: BoxFit.cover,
           ),
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.all(25.0),
+            padding: EdgeInsets.fromLTRB(60, 20, 60, 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -53,35 +55,48 @@ class _LoginFormState extends State<LoginForm> {
                   height: 60,
                 ),
                 Text(
-                  'Iniciar Sesión',
+                  'Login',
                   style: TextStyle(color: Colors.white, fontSize: 24.0),
-                ),
-                SizedBox(
-                  height: 20,
                 ),
                 SizedBox(
                   height: 150,
                   width: 150,
                   child: Image.asset(
-                    'assets/imgs/logo_secu.png',
+                    'assets/imgs/secufy_texto.png',
                   ),
                 ),
                 SizedBox(height: 75),
-                TextField(
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Correo Electrónico',
                     hintText: 'ejemplo@gmail.com',
                     hintStyle: TextStyle(color: Colors.white),
                     labelStyle: TextStyle(color: Colors.white),
                     suffixIcon: Icon(Icons.email_outlined, color: Colors.white),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Este campo es obligatorio';
+                    }
+                    return null;
+                  },
                   style: TextStyle(color: Colors.white),
                 ),
-                TextField(
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormField(
                   controller: _passwordController,
                   obscureText: _obscureText,
                   decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     labelText: 'Contraseña',
                     labelStyle: TextStyle(color: Colors.white),
                     suffixIcon: IconButton(
@@ -90,12 +105,23 @@ class _LoginFormState extends State<LoginForm> {
                           : Icons.visibility_off),
                       color: Colors.white,
                       onPressed: () {
-                        setState(() {
-                          _obscureText = !_obscureText;
-                        });
+                        setState(
+                          () {
+                            _obscureText = !_obscureText;
+                          },
+                        );
                       },
                     ),
                   ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Este campo es obligatorio';
+                    }
+                    return null;
+                  },
+                  onSaved: (String? value) {
+                    password = value!;
+                  },
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 5.0),

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const mainColor = Color.fromARGB(255, 12, 0, 177);
-  static const backColor = Color.fromARGB(255, 2, 0, 36);
+  static const mainColor = Color.fromARGB(99, 0, 125, 209);
+  static const backColor = Color.fromARGB(255, 11, 23, 53);
   static const negro = Color.fromARGB(255, 0, 0, 0);
   static const words = Color.fromARGB(255, 236, 234, 255);
   static const blanco = Color.fromARGB(255, 255, 255, 255);
