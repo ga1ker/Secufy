@@ -7,7 +7,7 @@ import 'package:secufy_app/services/auth_google.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class UserSettingsScreen extends StatefulWidget {
-  const UserSettingsScreen({super.key});
+  const UserSettingsScreen({Key? key});
 
   @override
   State<UserSettingsScreen> createState() => _UserSettingsScreenState();
@@ -17,75 +17,78 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
   int selectedIndex = 2;
 
   void openScreen(int index) {
-    setState(
-      () {
-        switch (index) {
-          case 0:
-            selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MainUserScreen()));
-            break;
-          case 1:
-            selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const NotificationsScreen()));
-            break;
-          case 2:
-            null;
-        }
-      },
-    );
+    setState(() {
+      selectedIndex = index;
+      switch (index) {
+        case 0:
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const MainUserScreen()));
+          break;
+        case 1:
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const NotificationsScreen()));
+          break;
+        case 2:
+          break;
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    var user = FirebaseAuth.instance.currentUser;
+    User? user = FirebaseAuth.instance.currentUser;
+    String displayName = user?.displayName ?? '';
+    String photoURL = user?.photoURL ?? 'assets/imgs/secufy_texto.png';
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(
-          'Mi cuenta',
-        ),
+        title: Text('Mi cuenta'),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              SizedBox(
-                height: 100,
-                width: 100,
-                child: CircleAvatar(
-                  foregroundImage: NetworkImage(user?.photoURL ?? ''),
-                ),
+              Row(
+                children: [
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(photoURL),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(photoURL),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                ],
               ),
               ListTile(
                 title: Text(
-                  user?.displayName ?? '',
+                  displayName,
                   style: AppTheme.lightTheme.textTheme.bodyMedium,
                 ),
               ),
               ListTile(
-                title: Text(
-                  'Ajustes',
-                  style: AppTheme.lightTheme.textTheme.bodyMedium,
-                ),
+                title: Text('Ajustes',
+                    style: AppTheme.lightTheme.textTheme.bodyMedium),
               ),
               ListTile(
-                title: Text(
-                  'Contacto',
-                  style: AppTheme.lightTheme.textTheme.bodyMedium,
-                ),
+                title: Text('Contacto',
+                    style: AppTheme.lightTheme.textTheme.bodyMedium),
               ),
               ListTile(
-                title: Text(
-                  'Acerca de',
-                  style: AppTheme.lightTheme.textTheme.bodyMedium,
-                ),
+                title: Text('Acerca de',
+                    style: AppTheme.lightTheme.textTheme.bodyMedium),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -93,8 +96,7 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                   if (mounted) {
                     Navigator.of(context).pushReplacement(
                       MaterialPageRoute(
-                        builder: (context) => const MainScreen(),
-                      ),
+                          builder: (context) => const MainScreen()),
                     );
                   }
                 },
@@ -110,25 +112,16 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
         onTap: (index) => openScreen(index),
         items: const [
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.camera_outdoor,
-              color: AppTheme.negro,
-            ),
-            label: "Camaras",
+            icon: Icon(Icons.camera_outdoor, color: AppTheme.negro),
+            label: 'Cámaras',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications,
-              color: AppTheme.negro,
-            ),
-            label: "Notificaciones",
+            icon: Icon(Icons.notifications, color: AppTheme.negro),
+            label: 'Notificaciones',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle_rounded,
-              color: AppTheme.negro,
-            ),
-            label: "Usuario",
+            icon: Icon(Icons.account_circle_rounded, color: AppTheme.negro),
+            label: 'Usuario',
           ),
         ],
       ),

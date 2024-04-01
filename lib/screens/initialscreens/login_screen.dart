@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:secufy_app/screens/initialscreens/forgot_password.dart';
 import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
 import 'package:secufy_app/screens/initialscreens/register_screen.dart';
+import 'package:secufy_app/services/auth_google.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -9,28 +11,20 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
   bool _isLoading = false;
   bool _obscureText = true;
-
-  void _submitForm() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulating some asynchronous operation
-    Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
-      print('Correo Electrónico: $email, Contraseña: $password');
-    });
-  }
 
   late String email, password;
 
@@ -142,13 +136,7 @@ class _LoginFormState extends State<LoginForm> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainUserScreen()),
-                          );
-                        },
+                        onPressed: _signIn,
                         child: Text('Iniciar sesión'),
                       ),
                 SizedBox(height: 20.0),
@@ -173,5 +161,61 @@ class _LoginFormState extends State<LoginForm> {
       backgroundColor:
           Colors.transparent, // Establece el color de fondo transparente
     );
+  }
+
+  void _signIn() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content: Text("Por favor, completa todos los campos."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Aceptar"),
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
+
+    if (user != null) {
+      print('Usuario inició sesión correctamente');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const MainUserScreen()),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Error"),
+            content:
+                Text("El correo electrónico o la contraseña son incorrectos."),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text("Aceptar"),
+              ),
+            ],
+          );
+        },
+      );
+      print('Ocurrió un error al iniciar sesión');
+    }
   }
 }

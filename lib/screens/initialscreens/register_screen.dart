@@ -1,6 +1,11 @@
+// ignore_for_file: unused_local_variable
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:secufy_app/screens/initialscreens/login_screen.dart';
-import 'package:secufy_app/screens/initialscreens/terms_screen.dart';
+import 'package:secufy_app/screens/aboutscreens/terms_screen.dart';
+import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
+import 'package:secufy_app/services/auth_google.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class RegisterForm extends StatefulWidget {
@@ -9,59 +14,26 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
+  final FirebaseAuthService _auth = FirebaseAuthService();
+
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
   TextEditingController _hardwareCodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
   bool _obscureText = true;
   bool _isChecked = false;
-
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      if (!_isChecked) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text('Aviso'),
-            content: Text('Debes aceptar los términos y condiciones.'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        String name = _nameController.text;
-        String email = _emailController.text;
-        String password = _passwordController.text;
-        String phone = _phoneController.text;
-        String hardwareCode = _hardwareCodeController.text;
-
-        setState(() {
-          _isLoading = true;
-        });
-
-        Future.delayed(Duration(seconds: 1), () {
-          setState(() {
-            _isLoading = false;
-          });
-          print('Nombre: $name');
-          print('Correo Electrónico: $email');
-          print('Contraseña: $password');
-          print('Teléfono: $phone');
-          print('Código de Hardware: $hardwareCode');
-          print('Acepta términos y condiciones: $_isChecked');
-        });
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +74,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
                 SizedBox(height: 20),
                 TextFormField(
+                  keyboardType: TextInputType.emailAddress,
                   controller: _emailController,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -207,7 +180,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _isLoading
                     ? CircularProgressIndicator()
                     : ElevatedButton(
-                        onPressed: _submitForm,
+                        onPressed: _signUp,
                         child: Text('Registrar'),
                       ),
                 SizedBox(height: 50),
@@ -227,5 +200,54 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
     );
+  }
+
+  void _signUp() async {
+    if (_formKey.currentState!.validate()) {
+      if (!_isChecked) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Aviso'),
+            content: Text('Debes aceptar los términos y condiciones.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      String name = _nameController.text;
+      String email = _emailController.text;
+      String password = _passwordController.text;
+      String hardwareCode = _hardwareCodeController.text;
+
+      setState(() {
+        _isLoading = true;
+      });
+
+      User? user = await _auth.signUpWithEmailAndPassword(email, password);
+
+      if (user != null) {
+        // Aquí actualizas el perfil del usuario con su nombre
+        await user.updateDisplayName(name);
+
+        print('Usuario creado correctamente');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainUserScreen()),
+        );
+      } else {
+        print('Ocurrió un error');
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 }
