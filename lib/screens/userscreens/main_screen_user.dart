@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:secufy_app/screens/userscreens/add_camera_form.dart';
+import 'package:secufy_app/screens/userscreens/camera_screen.dart';
 import 'package:secufy_app/screens/userscreens/notifications_screen.dart';
 import 'package:secufy_app/screens/userscreens/user_settings_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
@@ -54,8 +56,10 @@ class _MainUserScreenState extends State<MainUserScreen> {
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
-              // Acción para el botón de búsqueda
-              print('Acción de búsqueda');
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AddCameraScreen()),
+              );
             },
           ),
         ],
@@ -89,7 +93,13 @@ class _MainUserScreenState extends State<MainUserScreen> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            print('Camara 1');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ViewCameraScreen(cameraName: 'Cámara 1'),
+                              ),
+                            );
                           },
                           child: Text('Ver cámara'),
                         ),
