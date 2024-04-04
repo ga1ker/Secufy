@@ -162,17 +162,25 @@ class _RegisterFormState extends State<RegisterForm> {
                         });
                       },
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        final terms = MaterialPageRoute(builder: (context) {
-                          return TermsAndConditionsScreen();
-                        });
-                        Navigator.push(context, terms);
-                      },
-                      child: Text(
-                        'Acepto los términos y condiciones',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'Acepto los ',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            final terms = MaterialPageRoute(builder: (context) {
+                              return TermsAndConditionsScreen();
+                            });
+                            Navigator.push(context, terms);
+                          },
+                          child: Text(
+                            'términos y condiciones',
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -233,7 +241,6 @@ class _RegisterFormState extends State<RegisterForm> {
       User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
       if (user != null) {
-        // Aquí actualizas el perfil del usuario con su nombre
         await user.updateDisplayName(name);
 
         print('Usuario creado correctamente');
@@ -242,7 +249,19 @@ class _RegisterFormState extends State<RegisterForm> {
           MaterialPageRoute(builder: (context) => const MainUserScreen()),
         );
       } else {
-        print('Ocurrió un error');
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Error'),
+            content: Text('Este correo electrónico ya fue usado'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
       }
 
       setState(() {

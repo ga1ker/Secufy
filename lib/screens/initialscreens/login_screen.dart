@@ -119,18 +119,23 @@ class _LoginFormState extends State<LoginForm> {
                   style: TextStyle(color: Colors.white),
                 ),
                 SizedBox(height: 5.0),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ForgotPasswordScreen()),
-                    );
-                  },
-                  child: Text(
-                    'Olvidé mi contraseña',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ForgotPasswordScreen()),
+                        );
+                      },
+                      child: Text(
+                        'Olvidé mi contraseña',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 50.0),
                 _isLoading
@@ -140,17 +145,27 @@ class _LoginFormState extends State<LoginForm> {
                         child: Text('Iniciar sesión'),
                       ),
                 SizedBox(height: 20.0),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterForm()),
-                    );
-                  },
-                  child: Text(
-                    'No tengo cuenta',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'No tienes cuenta?  ',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RegisterForm()),
+                        );
+                      },
+                      child: Text(
+                        'Registrarme',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 20.0)
               ],

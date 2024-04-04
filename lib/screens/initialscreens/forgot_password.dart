@@ -1,41 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:secufy_app/screens/initialscreens/recovery_password.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final RegExp emailRegExp = RegExp(
-      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$'); // Expresión regular para validar el formato de correo electrónico
 
-  void _submitForm(BuildContext context) {
-    String email = _emailController.text;
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
-    if (email.isEmpty || !emailRegExp.hasMatch(email)) {
-      // Si el correo electrónico está vacío o no es válido, muestra un mensaje de error
+  Future<void> passwordReset() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(
+        email: _emailController.text.trim(),
+      );
       showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (context) {
           return AlertDialog(
-            title: Text('Error'),
-            content: Text('Por favor, ingrese un correo electrónico válido.'),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK'),
-              ),
-            ],
+            content: Text(
+                '¡Se ha enviado un enlace de restablecimiento de contraseña a su correo electrónico!'),
           );
         },
       );
-    } else {
-      // Si el correo electrónico es válido, navega a la pantalla de recuperación
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => RecoveryScreen()),
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(e.message.toString()),
+          );
+        },
       );
-      print('correo de recuperación $email');
     }
   }
 
@@ -68,8 +74,8 @@ class ForgotPasswordScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () => _submitForm(context),
-              child: Text('Enviar'),
+              onPressed: passwordReset,
+              child: Text('Recuperar contraseña'),
             ),
           ],
         ),
