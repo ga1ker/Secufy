@@ -47,32 +47,33 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDSpTDH1ISoqtjI5NRi0_IOLh4KZ1Dc4xM',
-    appId: '1:743492029148:web:f54cc43393c86dbce60219',
-    messagingSenderId: '743492029148',
-    projectId: 'secufy-31c90',
-    authDomain: 'secufy-31c90.firebaseapp.com',
-    databaseURL: 'https://secufy-31c90-default-rtdb.firebaseio.com',
-    storageBucket: 'secufy-31c90.appspot.com',
+    apiKey: 'AIzaSyAfKG-BNZSW0lAaiOozcQonIVySdt0mMxE',
+    appId: '1:791195499468:web:bc92e553af92e3fc7abb69',
+    messagingSenderId: '791195499468',
+    projectId: 'secufy-3c114',
+    authDomain: 'secufy-3c114.firebaseapp.com',
+    databaseURL: 'https://secufy-3c114-default-rtdb.firebaseio.com',
+    storageBucket: 'secufy-3c114.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDEoz3H3pTYSflGF-g7cLcP2m2Q0bczRZA',
-    appId: '1:743492029148:android:459e41d0d4106c26e60219',
-    messagingSenderId: '743492029148',
-    projectId: 'secufy-31c90',
-    databaseURL: 'https://secufy-31c90-default-rtdb.firebaseio.com',
-    storageBucket: 'secufy-31c90.appspot.com',
+    apiKey: 'AIzaSyC3zhbyGDHOk740BKRXvL993bjaVUXVtRE',
+    appId: '1:791195499468:android:3f063b3c876238cb7abb69',
+    messagingSenderId: '791195499468',
+    projectId: 'secufy-3c114',
+    databaseURL: 'https://secufy-3c114-default-rtdb.firebaseio.com',
+    storageBucket: 'secufy-3c114.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB7tlgbYL558irpqjye0nb1Yla1ePRZSic',
-    appId: '1:743492029148:ios:a436db2edfbe9c10e60219',
-    messagingSenderId: '743492029148',
-    projectId: 'secufy-31c90',
-    databaseURL: 'https://secufy-31c90-default-rtdb.firebaseio.com',
-    storageBucket: 'secufy-31c90.appspot.com',
-    iosClientId: '743492029148-b0ji61msmpef4hon2jaqtftr0vg6t9m5.apps.googleusercontent.com',
+    apiKey: 'AIzaSyASG9fwsz3NXKnTr2vrLplDjjNfNta7peM',
+    appId: '1:791195499468:ios:996875262c00f7de7abb69',
+    messagingSenderId: '791195499468',
+    projectId: 'secufy-3c114',
+    databaseURL: 'https://secufy-3c114-default-rtdb.firebaseio.com',
+    storageBucket: 'secufy-3c114.appspot.com',
+    iosClientId:
+        '791195499468-lnh0kvb02k8b9mg0ctmfad6rddi2sqct.apps.googleusercontent.com',
     iosBundleId: 'com.example.secufyApp',
   );
 }

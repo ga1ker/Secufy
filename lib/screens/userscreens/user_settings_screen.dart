@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:secufy_app/screens/aboutscreens/contact.dart';
 import 'package:secufy_app/screens/initialscreens/main_screen.dart';
 import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
 import 'package:secufy_app/screens/userscreens/notifications_screen.dart';
@@ -82,9 +84,19 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                 title: Text('Ajustes',
                     style: AppTheme.lightTheme.textTheme.bodyMedium),
               ),
-              ListTile(
-                title: Text('Contacto',
-                    style: AppTheme.lightTheme.textTheme.bodyMedium),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ContactScreen(),
+                    ),
+                  );
+                },
+                child: ListTile(
+                  title: Text('Contacto',
+                      style: AppTheme.lightTheme.textTheme.bodyMedium),
+                ),
               ),
               ListTile(
                 title: Text('Acerca de',

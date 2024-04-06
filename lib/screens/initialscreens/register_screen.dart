@@ -253,7 +253,7 @@ class _RegisterFormState extends State<RegisterForm> {
           context: context,
           builder: (context) => AlertDialog(
             title: Text('Error'),
-            content: Text('Este correo electrónico ya fue usado'),
+            content: Text('Este correo electrónico ya está registrado'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.pop(context),
