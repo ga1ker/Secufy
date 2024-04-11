@@ -19,7 +19,7 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
   bool isTakingPhoto = false;
 
   final DatabaseReference _database =
-      FirebaseDatabase.instance.ref().child('Camara');
+      FirebaseDatabase.instance.ref().child('Camera');
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
         if (data != null) {
           setState(() {
             isDynamicCameraEnabled = data['sensor'] ?? false;
-            isAlarmEnabled = data['alarma'] ?? false;
+            isAlarmEnabled = data['movimiento'] ?? false;
             isTakingPhoto = data['foto'] ?? false;
           });
         }
@@ -43,13 +43,6 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
     setState(() {
       isDynamicCameraEnabled = newValue;
       _database.update({'sensor': isDynamicCameraEnabled});
-    });
-  }
-
-  void toggleAlarm(bool newValue) {
-    setState(() {
-      isAlarmEnabled = newValue;
-      _database.update({'alarma': isAlarmEnabled});
     });
   }
 
@@ -77,23 +70,11 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Cámara dinámica', style: TextStyle(color: Colors.white)),
+                Text('Detección de movimiento',
+                    style: TextStyle(color: Colors.white)),
                 Switch(
                   value: isDynamicCameraEnabled,
                   onChanged: toggleDynamicCamera,
-                  activeColor: Colors.green,
-                  inactiveThumbColor: Colors.grey,
-                  inactiveTrackColor: Colors.grey[300],
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Sonar Alarma', style: TextStyle(color: Colors.white)),
-                Switch(
-                  value: isAlarmEnabled,
-                  onChanged: toggleAlarm,
                   activeColor: Colors.green,
                   inactiveThumbColor: Colors.grey,
                   inactiveTrackColor: Colors.grey[300],

@@ -32,10 +32,8 @@ class _MainUserScreenState extends State<MainUserScreen> {
             break;
           case 2:
             selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const UserSettingsScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => UserSettingsScreen()));
             break;
         }
       },
@@ -114,31 +112,33 @@ class _MainUserScreenState extends State<MainUserScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedIndex,
-        backgroundColor: AppTheme.mainColor,
+        backgroundColor: AppTheme.negro,
         onTap: (index) => openScreen(index),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.camera_outdoor,
-              color: AppTheme.negro,
+              Icons.camera_alt,
+              color: AppTheme.blanco,
             ),
             label: "Camaras",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.notifications,
-              color: AppTheme.negro,
+              Icons.notifications_outlined,
+              color: AppTheme.blanco,
             ),
             label: "Notificaciones",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_circle_rounded,
-              color: AppTheme.negro,
+              Icons.account_circle_outlined,
+              color: AppTheme.blanco,
             ),
             label: "Usuario",
           ),
         ],
+        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.amber,
       ),
       backgroundColor: AppTheme.lightTheme.scaffoldBackgroundColor,
     );

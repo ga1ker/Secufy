@@ -8,7 +8,6 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Contacto'),
         backgroundColor: AppTheme.backColor,
         iconTheme: IconThemeData(color: AppTheme.blanco),
       ),
@@ -20,10 +19,13 @@ class ContactScreen extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              Text(
-                'Puedes comunicarte con nosotros en:',
-                style: AppTheme.lightTheme.textTheme.titleMedium,
-                textAlign: TextAlign.center,
+              Padding(
+                padding: const EdgeInsets.all(30),
+                child: Text(
+                  'Puedes comunicarte con nosotros en:',
+                  style: AppTheme.lightTheme.textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
               ),
               SizedBox(
                 height: 100,
