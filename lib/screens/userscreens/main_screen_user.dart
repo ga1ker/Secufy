@@ -94,8 +94,9 @@ class _MainUserScreenState extends State<MainUserScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) =>
-                                    ViewCameraScreen(cameraName: 'Cámara 1'),
+                                builder: (context) => ViewCameraScreen(
+                                  cameraName: '',
+                                ),
                               ),
                             );
                           },

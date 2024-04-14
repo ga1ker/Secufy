@@ -1,63 +1,107 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
 import 'package:secufy_app/screens/userscreens/user_settings_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({super.key});
+  const NotificationsScreen({Key? key}) : super(key: key);
 
   @override
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
-  int selectedIndex = 1;
+  final DatabaseReference _fotoMoviRef =
+      FirebaseDatabase.instance.ref().child('Camera/notifi/fotoMovi');
+  final DatabaseReference _fotoUserRef =
+      FirebaseDatabase.instance.ref().child('Camera/notifi/fotoUser');
+  List<Map<String, String>> notifications = [];
 
-  void openScreen(int index) {
-    setState(
-      () {
-        switch (index) {
-          case 0:
-            selectedIndex = index;
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const MainUserScreen()));
-            break;
-          case 1:
-            null;
-          case 2:
-            selectedIndex = index;
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => UserSettingsScreen()));
-            break;
-        }
-      },
-    );
+  @override
+  void initState() {
+    super.initState();
+    _fotoMoviRef.onValue.listen((event) {
+      var data = event.snapshot.value as Map?;
+      if (data != null) {
+        setState(() {
+          data.forEach((key, value) {
+            String message;
+            if (value['type'] == 'movimiento') {
+              message = 'Movimiento detectado';
+            } else if (value['type'] == 'fotoUser') {
+              message = 'Foto tomada por el usuario';
+            } else {
+              message = 'Tipo de notificación desconocido';
+            }
+            notifications
+                .add({'id': key, 'type': value['type'], 'message': message});
+          });
+        });
+      }
+    });
+
+    _fotoUserRef.onValue.listen((event) {
+      var data = event.snapshot.value as Map?;
+      if (data != null) {
+        setState(() {
+          data.forEach((key, value) {
+            String message;
+            if (value['type'] == 'movimiento') {
+              message = 'Movimiento detectado';
+            } else if (value['type'] == 'fotoUser') {
+              message = 'Foto tomada por el usuario';
+            } else {
+              message = 'Tipo de notificación desconocido';
+            }
+            notifications
+                .add({'id': key, 'type': value['type'], 'message': message});
+          });
+        });
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         title: Text('Notificaciones'),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.all(20),
-          child: ListTile(
-            title: Text(
-              'hola',
-              style: AppTheme.lightTheme.textTheme.bodyMedium,
-            ),
-          ),
-        ),
+      body: ListView.builder(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(notifications[index]['message'] ?? ''),
+            subtitle: Text(notifications[index]['type'] == 'fotoUser'
+                ? 'Foto tomada por el usuario'
+                : 'Movimiento detectado'),
+          );
+        },
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: selectedIndex,
+        currentIndex:
+            1, // Asegúrate de que la pantalla de notificaciones esté seleccionada
         backgroundColor: AppTheme.negro,
-        onTap: (index) => openScreen(index),
+        onTap: (index) {
+          switch (index) {
+            case 0:
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MainUserScreen()));
+              break;
+            case 1:
+              // No necesitas hacer nada aquí ya que ya estás en la pantalla de notificaciones
+              break;
+            case 2:
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => UserSettingsScreen()));
+              break;
+          }
+        },
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
