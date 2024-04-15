@@ -5,6 +5,7 @@ class AppTheme {
   static const mainColor = Color.fromARGB(215, 39, 169, 255);
   static const backColor = Color.fromARGB(255, 16, 34, 77);
   static const bottom = Color.fromARGB(255, 10, 21, 44);
+  static const unactive = Color.fromARGB(255, 122, 122, 122);
   static const negro = Color.fromARGB(255, 0, 0, 0);
   static const words = Color.fromARGB(255, 236, 234, 255);
   static const blanco = Color.fromARGB(255, 255, 255, 255);

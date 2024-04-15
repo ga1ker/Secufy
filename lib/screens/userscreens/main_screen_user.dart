@@ -126,14 +126,14 @@ class _MainUserScreenState extends State<MainUserScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications_outlined,
-              color: AppTheme.blanco,
+              color: AppTheme.unactive,
             ),
             label: "Notificaciones",
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle_outlined,
-              color: AppTheme.blanco,
+              color: AppTheme.unactive,
             ),
             label: "Usuario",
           ),

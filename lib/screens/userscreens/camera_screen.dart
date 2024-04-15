@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/services.dart';
+import 'package:secufy_app/screens/userscreens/photos_screen.dart';
 import 'package:secufy_app/theme/app_theme.dart';
 
 class ViewCameraScreen extends StatefulWidget {
@@ -71,16 +72,25 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
         title: Text(widget.cameraName),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(40, 20, 30, 20),
-            child: Icon(Icons.photo_camera_back_outlined),
+            padding: const EdgeInsets.all(20.0),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => PhotosScreen()));
+              },
+              child: Icon(Icons.photo),
+            ),
           )
         ],
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ForcePicRefresh(),
+            SizedBox(
+              height: 100,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -100,7 +110,7 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
               onPressed: takePhoto,
               child: Text('Tomar Foto'),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 200),
           ],
         ),
       ),
@@ -119,26 +129,13 @@ class _ForcePicRefreshState extends State<ForcePicRefresh> {
       'https://firebasestorage.googleapis.com/v0/b/secufy-3c114.appspot.com/o/Stream%2Fstream.jpg?alt=media&token=a81790e8-1d2a-4ca9-bab3-9035b4134a43';
   late Widget _pic;
   late Timer _timer;
-  bool _showBlackBox = false;
 
   @override
   void initState() {
     super.initState();
-    _pic = Container(
-      color: Colors.transparent,
-      child: SizedBox(
-        height: 300,
-        child: Image.network(url),
-      ),
-    );
+    _pic = Image.network(url);
     _timer = Timer.periodic(
-        Duration(milliseconds: 200), (Timer t) => _toggleBlackBox());
-  }
-
-  _toggleBlackBox() {
-    setState(() {
-      _showBlackBox = !_showBlackBox;
-    });
+        Duration(milliseconds: 200), (Timer t) => _updateImgWidget());
   }
 
   _updateImgWidget() async {
@@ -147,13 +144,7 @@ class _ForcePicRefreshState extends State<ForcePicRefresh> {
         .asUint8List();
     if (mounted) {
       setState(() {
-        _pic = Container(
-          color: Colors.transparent,
-          child: SizedBox(
-            height: 300,
-            child: Image.memory(bytes),
-          ),
-        );
+        _pic = Image.memory(bytes);
       });
     }
   }
@@ -169,17 +160,7 @@ class _ForcePicRefreshState extends State<ForcePicRefresh> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      child: Stack(
-        children: [
-          _pic,
-          if (_showBlackBox)
-            Container(
-              color: Colors.transparent,
-              width: 1,
-              height: 300,
-            ),
-        ],
-      ),
+      child: _pic,
       onTap: () {
         _updateImgWidget();
       },

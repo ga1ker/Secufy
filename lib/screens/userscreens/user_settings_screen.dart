@@ -134,14 +134,14 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.camera_alt_outlined,
-              color: AppTheme.blanco,
+              color: AppTheme.unactive,
             ),
             label: 'Cámaras',
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications_outlined,
-              color: AppTheme.blanco,
+              color: AppTheme.unactive,
             ),
             label: 'Notificaciones',
           ),
