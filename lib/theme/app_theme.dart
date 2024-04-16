@@ -33,6 +33,8 @@ class AppTheme {
       ),
       bodyMedium: GoogleFonts.nunito(
         color: words,
+        fontWeight: FontWeight.bold,
+        fontSize: 18,
       ),
       titleMedium: GoogleFonts.abel(
         color: mainColor,

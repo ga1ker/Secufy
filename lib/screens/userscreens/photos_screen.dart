@@ -22,7 +22,7 @@ class _PhotosScreenState extends State<PhotosScreen> {
     final storageRef = FirebaseStorage.instance.ref().child("Fotos");
     final listResult = await storageRef.listAll();
 
-    for (var item in listResult.items) {
+    for (var item in listResult.items.reversed) {
       String url = await item.getDownloadURL();
       if (mounted) {
         setState(() {
@@ -41,9 +41,9 @@ class _PhotosScreenState extends State<PhotosScreen> {
       backgroundColor: AppTheme.backColor,
       body: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3, // Ajusta este valor según el diseño que desees
-          crossAxisSpacing: 4.0, // Espacio entre columnas
-          mainAxisSpacing: 4.0, // Espacio entre filas
+          crossAxisCount: 4,
+          crossAxisSpacing: 4.0,
+          mainAxisSpacing: 4.0,
         ),
         itemCount: _items.length,
         itemBuilder: (context, index) {

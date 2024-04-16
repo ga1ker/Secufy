@@ -47,21 +47,24 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
     });
   }
 
-  void toggleDynamicCamera(bool newValue) {
+  void toggleDynamicCamera(bool newValue) async {
     setState(() {
       isDynamicCameraEnabled = newValue;
-      _database.update({'sensor': isDynamicCameraEnabled});
     });
+    await _database.update({'sensor': isDynamicCameraEnabled});
   }
 
-  void takePhoto() {
+  void takePhoto() async {
     setState(() {
       isTakingPhoto = true;
-      _database.update({'foto': true});
     });
+    await _database.update({'foto': true});
 
-    Timer(Duration(seconds: 2), () {
-      _database.update({'foto': false});
+    Timer(Duration(seconds: 2), () async {
+      await _database.update({'foto': false});
+      setState(() {
+        isTakingPhoto = false;
+      });
     });
   }
 
@@ -89,7 +92,7 @@ class _ViewCameraScreenState extends State<ViewCameraScreen> {
           children: [
             ForcePicRefresh(),
             SizedBox(
-              height: 100,
+              height: 145,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

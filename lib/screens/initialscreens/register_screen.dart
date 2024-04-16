@@ -234,6 +234,24 @@ class _RegisterFormState extends State<RegisterForm> {
       String password = _passwordController.text;
       String hardwareCode = _hardwareCodeController.text;
 
+      // Verificar si el código de la cámara es válido
+      if (hardwareCode != 'SECU1') {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text('Aviso'),
+            content: Text('Código de cámara inválido.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('OK'),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
       setState(() {
         _isLoading = true;
       });

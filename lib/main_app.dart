@@ -1,52 +1,56 @@
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:secufy_app/screens/initialscreens/main_screen.dart';
 import 'package:secufy_app/screens/userscreens/main_screen_user.dart';
 
 class MainApp extends StatelessWidget {
-  MainApp({super.key});
-  FirebaseMessaging get _firebaseMessaging => FirebaseMessaging.instance;
-  final databaseReference = FirebaseDatabase.instance.ref();
+  MainApp({Key? key}) : super(key: key);
+
+  final DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification!.android;
-
-      // Si onMessage es activado con una notificación, construimos nuestra notificación local.
-      if (notification != null && android != null) {
-        print('A new onMessage event was published!');
-      }
-    });
-
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      String? screen = message.data['screen'];
-
-      if (screen != null) {
-        if (screen == 'camera_screen') {
-          Navigator.of(context).pushNamed('camera_screen');
-        }
-      }
-    });
-
+    // Escucha los cambios en el nodo "sensor" en la base de datos
     databaseReference.child('Camera/movimiento').onValue.listen((event) {
       var snapshot = event.snapshot;
 
       if (snapshot.value == true) {
-        FirebaseMessaging.instance.getToken().then((String? token) {
-          assert(token != null);
-          print("Push Messaging token: $token");
-        });
+        var user = _auth.currentUser;
+        if (user != null) {
+          _sendEmail(
+              user.email!); // Proporciona el correo electrónico del usuario
+          print('notificación');
+        }
       }
     });
 
-    var user = FirebaseAuth.instance.currentUser;
+    var user = _auth.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: user != null ? const MainUserScreen() : const MainScreen(),
     );
+  }
+
+  void _sendEmail(String userEmail) async {
+    final smtpServer = gmail('secufyoficial@gmail.com', 'mbry mmfv kxhm zjmd');
+
+    // Crear el mensaje
+    final message = Message()
+      ..from = const Address('secufyoficial@gmail.com', 'Secufy')
+      ..recipients.add(
+          userEmail) // Utilizar el correo electrónico del usuario registrado
+      ..subject = '¡Se detectó movimiento!'
+      ..text = 'Se ha detectado movimiento en tu cámara.';
+
+    try {
+      final sendReport = await send(message, smtpServer);
+      print('Email sent: ${sendReport.toString()}');
+    } catch (error) {
+      print('Error sending email: $error');
+    }
   }
 }

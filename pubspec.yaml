@@ -20,6 +20,8 @@ dependencies:
   firebase_storage: ^11.7.1
   cached_network_image: ^3.3.1
   firebase_messaging: ^14.8.1
+  mailer: ^6.1.0
+  url_launcher: ^6.2.6
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +35,9 @@ flutter:
     - assets/imgs/secufy_texto.png
     - assets/imgs/back_image.png
     - assets/imgs/google.png
+    - assets/imgs/wasap.png
+    - assets/imgs/face.png
+    - assets/imgs/insta.png
     - assets/imgs/gadiel.jpg
     - assets/imgs/medel.jpg
     - assets/imgs/angel.jpg

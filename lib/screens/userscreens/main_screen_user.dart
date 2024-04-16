@@ -71,9 +71,9 @@ class _MainUserScreenState extends State<MainUserScreen> {
             Center(
               child: SizedBox(
                 height: 200,
-                width: 300,
+                width: 380,
                 child: Card(
-                  color: Colors.white, // Cambiado a color blanco
+                  color: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),

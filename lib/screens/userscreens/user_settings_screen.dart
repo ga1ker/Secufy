@@ -82,10 +82,6 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
                   style: AppTheme.lightTheme.textTheme.bodyMedium,
                 ),
               ),
-              ListTile(
-                title: Text('Ajustes',
-                    style: AppTheme.lightTheme.textTheme.bodyMedium),
-              ),
               GestureDetector(
                 onTap: () {
                   Navigator.push(

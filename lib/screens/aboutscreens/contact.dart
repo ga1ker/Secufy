@@ -8,92 +8,152 @@ class ContactScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+          'Contáctanos',
+          style: AppTheme.lightTheme.textTheme.titleLarge,
+        ),
         backgroundColor: AppTheme.backColor,
         iconTheme: IconThemeData(color: AppTheme.blanco),
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 50,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(30),
-                child: Text(
-                  'Puedes comunicarte con nosotros en:',
-                  style: AppTheme.lightTheme.textTheme.titleMedium,
-                  textAlign: TextAlign.center,
+          child: Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Column(
+              children: [
+                Text(
+                  'Si tienes dudas o necesitas ayuda o soporte técnico, puedes contactarte con nosotros a través de:',
+                  style: AppTheme.lightTheme.textTheme.bodyLarge,
                 ),
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              ContactInfo(
-                icon: Icons.mail,
-                text: 'secufyoficial@gmail.com',
-              ),
-              ContactInfo(
-                icon: Icons.phone,
-                text: '+52 247 132 76 25',
-              ),
-              ContactInfo(
-                icon: Icons.location_on,
-                text: '8 Sur 48',
-              ),
-              SizedBox(height: 100),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Icon(
-                    Icons.facebook,
-                    color: AppTheme.blanco,
+                SizedBox(
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Card(
+                      color: Colors.transparent,
+                      child: SizedBox(
+                        width: 150,
+                        height: 150,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Image.asset(
+                              'assets/imgs/wasap.png',
+                              height: 60,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'WhatsApp',
+                              style: AppTheme.lightTheme.textTheme.bodyMedium,
+                            ),
+                            SizedBox(
+                              height: 1,
+                            ),
+                            Text(
+                              '2471327625',
+                              style: AppTheme.lightTheme.textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Card(
+                      color: Colors.transparent,
+                      child: SizedBox(
+                        width: 180,
+                        height: 150,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Icon(
+                              Icons.email_rounded,
+                              size: 60,
+                              color: AppTheme.blanco,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Email',
+                              style: AppTheme.lightTheme.textTheme.bodyMedium,
+                            ),
+                            SizedBox(
+                              height: 1,
+                            ),
+                            Text(
+                              'secufyoficial@gmail.com',
+                              style: AppTheme.lightTheme.textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Card(
+                  borderOnForeground: true,
+                  elevation: 2,
+                  color: Colors.transparent,
+                  child: SizedBox(
+                    height: 100,
+                    width: 350,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          'assets/imgs/insta.png',
+                          width: 50,
+                        ),
+                        Text(
+                          '@secufyoficial',
+                          style: AppTheme.lightTheme.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.camera_alt,
-                    color: AppTheme.blanco,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Card(
+                  borderOnForeground: true,
+                  elevation: 2,
+                  color: Colors.transparent,
+                  child: SizedBox(
+                    height: 100,
+                    width: 350,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Image.asset(
+                          'assets/imgs/face.png',
+                          width: 50,
+                        ),
+                        Text(
+                          'Secufy',
+                          style: AppTheme.lightTheme.textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
                   ),
-                  Icon(
-                    Icons.one_x_mobiledata,
-                    color: AppTheme.blanco,
-                  ),
-                ],
-              ),
-            ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
       backgroundColor: AppTheme.backColor,
-    );
-  }
-}
-
-class ContactInfo extends StatelessWidget {
-  final IconData icon;
-  final String text;
-
-  const ContactInfo({Key? key, required this.icon, required this.text})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon,
-            color: AppTheme.blanco,
-          ),
-          SizedBox(width: 10),
-          Text(
-            text,
-            style: AppTheme.lightTheme.textTheme.bodySmall,
-          ),
-        ],
-      ),
     );
   }
 }
