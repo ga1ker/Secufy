@@ -14,16 +14,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Escucha los cambios en el nodo "sensor" en la base de datos
     databaseReference.child('Camera/movimiento').onValue.listen((event) {
       var snapshot = event.snapshot;
 
       if (snapshot.value == true) {
         var user = _auth.currentUser;
         if (user != null) {
-          _sendEmail(
-              user.email!); // Proporciona el correo electrónico del usuario
-          print('notificación');
+          _sendEmail(user.email!);
         }
       }
     });
@@ -37,12 +34,9 @@ class MainApp extends StatelessWidget {
 
   void _sendEmail(String userEmail) async {
     final smtpServer = gmail('secufyoficial@gmail.com', 'mbry mmfv kxhm zjmd');
-
-    // Crear el mensaje
     final message = Message()
       ..from = const Address('secufyoficial@gmail.com', 'Secufy')
-      ..recipients.add(
-          userEmail) // Utilizar el correo electrónico del usuario registrado
+      ..recipients.add(userEmail)
       ..subject = '¡Se detectó movimiento!'
       ..text = 'Se ha detectado movimiento en tu cámara.';
 

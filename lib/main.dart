@@ -9,20 +9,12 @@ import 'package:secufy_app/services/push_notifications_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  // Inicializa el servicio de notificaciones push
   await PushNotificationsService.initializeApp();
-
-  // Inicializa Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  // Configura el manejo de notificaciones
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
   runApp(MainApp());
 }
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // Aquí puedes manejar las notificaciones entrantes cuando la aplicación está en segundo plano
   print("Mensaje recibido en segundo plano: ${message.messageId}");
 }
